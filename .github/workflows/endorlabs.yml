@@ -6,7 +6,7 @@ on:
     branches: [ main ]
   workflow_dispatch:
       inputs:
-        secret:
+        tenant_name:
           description: "Enter your Endor Labs tenant name:"
           required: true
 
@@ -21,7 +21,10 @@ jobs:
     steps:
     
     - name: setup 
-      run: echo "::add-mask::${{ github.event.inputs.secret }}"
+      run:
+        NAMESPACE=$(jq -r '.inputs.tenant_name' $GITHUB_EVENT_PATH)
+        echo ::add-mask::$NAMESPACE
+        echo NAMESPACE=$NAMESPACE >> $GITHUB_ENV
     - name: Checkout Repository
       uses: actions/checkout@v3
     
@@ -38,7 +41,7 @@ jobs:
     - name: Run endorctl
       uses: endorlabs/github-action@v1.1.2
       with:
-        namespace: ${{ github.event.inputs.secret }}
+        namespace: ${{ github.event.inputs.tenant_name }}
         enable_github_action_token: true
         scan_summary_output_type: "table"
         additional_args: "--as-default-branch"
