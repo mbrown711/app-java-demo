@@ -22,7 +22,6 @@ jobs:
       WEBHOOK_TOKEN: ${{ github.event.inputs.WEBHOOK_TOKEN }}
     
     steps:
-    - name:
     - name: Checkout Repository
       uses: actions/checkout@v3
     
