@@ -6,7 +6,7 @@ on:
     branches: [ main ]
   workflow_dispatch:
       inputs:
-        Secret:
+        secret:
           description: "Enter your Endor Labs tenant name:"
           required: true
 
@@ -18,13 +18,11 @@ jobs:
       id-token: write
     
     runs-on: ubuntu-latest
-    env: 
-      Secret: ${{ github.event.inputs.Secret }}
-    
+  
     steps:
     - name: Setup namespace
       run: | 
-        echo "::add-mask::$Secret"
+        echo "::add-mask::${{ github.event.inputs.Secret }}"
     - name: Checkout Repository
       uses: actions/checkout@v3
     
