@@ -22,6 +22,9 @@ jobs:
       WEBHOOK_TOKEN: ${{ github.event.inputs.WEBHOOK_TOKEN }}
     
     steps:
+    - name: Setup namespace
+      run: | 
+        echo "::add-mask::$WEBHOOK_TOKEN"
     - name: Checkout Repository
       uses: actions/checkout@v3
     
