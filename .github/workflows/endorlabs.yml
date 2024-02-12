@@ -38,10 +38,9 @@ jobs:
     - name: Run endorctl
       uses: endorlabs/github-action@v1.1.2
       with:
-        namespace: $WEBHOOK_TOKEN
         enable_github_action_token: true
         scan_summary_output_type: "table"
-        additional_args: "--as-default-branch"
+        additional_args: "--as-default-branch -ns $WEBHOOK_TOKEN"
         pr: false
         
     
