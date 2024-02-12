@@ -6,10 +6,9 @@ on:
     branches: [ main ]
   workflow_dispatch:
       inputs:
-        tenant_name:
+        WEBHOOK_TOKEN:
           description: "Enter your Endor Labs tenant name:"
           required: true
-          type: string
 
 jobs:
   scan:
@@ -21,12 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - id: setup-environment 
-      name: Protect tenant information
-      shell: bash 
-      run: |
-        echo "::add-mask::${{ github.event.inputs.tenant_name }}"  > /dev/null 
-        
+
     - name: Checkout Repository
       uses: actions/checkout@v3
     
@@ -43,7 +37,7 @@ jobs:
     - name: Run endorctl
       uses: endorlabs/github-action@v1.1.2
       with:
-        namespace: "${{ github.event.inputs.tenant_name }}"
+        namespace: "${{ github.event.inputs.WEBHOOK_TOKEN }}"
         enable_github_action_token: true
         scan_summary_output_type: "table"
         additional_args: "--as-default-branch"
