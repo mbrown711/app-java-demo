@@ -41,7 +41,7 @@ jobs:
         namespace: "$WEBHOOK_TOKEN"
         enable_github_action_token: true
         scan_summary_output_type: "table"
-        additional_args: "--as-default-branch -ns $WEBHOOK_TOKEN"
+        additional_args: "--as-default-branch"
         pr: false
         
     
