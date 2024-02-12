@@ -21,9 +21,7 @@ jobs:
     steps:
     
     - name: setup 
-      env:
-        secret: ${{ github.event.inputs.secret }}
-      run: echo "::add-mask::$secret"
+      run: echo "::add-mask::${{ github.event.inputs.secret }}"
     - name: Checkout Repository
       uses: actions/checkout@v3
     
