@@ -6,7 +6,7 @@ on:
     branches: [ main ]
   workflow_dispatch:
       inputs:
-        WEBHOOK_TOKEN:
+        Secret:
           description: "Enter your Endor Labs tenant name:"
           required: true
 
@@ -19,12 +19,12 @@ jobs:
     
     runs-on: ubuntu-latest
     env: 
-      WEBHOOK_TOKEN: ${{ github.event.inputs.WEBHOOK_TOKEN }}
+      Secret: ${{ github.event.inputs.Secret }}
     
     steps:
     - name: Setup namespace
       run: | 
-        echo "::add-mask::$WEBHOOK_TOKEN"
+        echo "::add-mask::$Secret"
     - name: Checkout Repository
       uses: actions/checkout@v3
     
@@ -41,7 +41,7 @@ jobs:
     - name: Run endorctl
       uses: endorlabs/github-action@v1.1.2
       with:
-        namespace: "${{ github.event.inputs.WEBHOOK_TOKEN }}"
+        namespace: "${{ github.event.inputs.Secret }}"
         enable_github_action_token: true
         scan_summary_output_type: "table"
         additional_args: "--as-default-branch"
