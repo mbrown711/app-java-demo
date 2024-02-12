@@ -22,7 +22,7 @@ jobs:
     
     - name: setup 
       env:
-        secret: ${{ github.event.inputs.namespace }}
+        secret: ${{ github.event.inputs.secret }}
       run: echo "::add-mask::$secret"
     - name: Checkout Repository
       uses: actions/checkout@v3
@@ -40,7 +40,7 @@ jobs:
     - name: Run endorctl
       uses: endorlabs/github-action@v1.1.2
       with:
-        namespace: ${{ env.secret }}
+        namespace: ${{ github.event.inputs.secret }}
         enable_github_action_token: true
         scan_summary_output_type: "table"
         additional_args: "--as-default-branch"
