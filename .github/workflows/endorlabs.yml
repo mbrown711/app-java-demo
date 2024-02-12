@@ -6,7 +6,7 @@ on:
     branches: [ main ]
   workflow_dispatch:
       inputs:
-        namespace:
+        secret:
           description: "Enter your Endor Labs tenant name:"
           required: true
 
@@ -17,13 +17,10 @@ jobs:
       id-token: write
     
     runs-on: ubuntu-latest
-  
+    env:
+      secret: ${{ github.event.inputs.namespace }}
     steps:
-    - name: Setup namespace
-      id: namespace-setup 
-      run: | 
-        echo "::add-mask::${{ github.event.inputs.namespace }}" 
-        echo "NAMESPACE=${{ github.event.inputs.namespace }}" >> $GITHUB_ENV
+    
     - name: Checkout Repository
       uses: actions/checkout@v3
     
@@ -40,7 +37,7 @@ jobs:
     - name: Run endorctl
       uses: endorlabs/github-action@v1.1.2
       with:
-        namespace: "$NAMESPACE"
+        namespace: "${{secret}}"
         enable_github_action_token: true
         scan_summary_output_type: "table"
         additional_args: "--as-default-branch"
