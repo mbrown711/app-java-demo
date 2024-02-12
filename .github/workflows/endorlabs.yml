@@ -22,7 +22,10 @@ jobs:
     
     steps:
     - name: Protect tenant information
-      run: echo "::add-mask::${{ github.event.inputs.tenant_name }}"
+      shell: bash 
+      run: |
+        MASK=${{ github.event.inputs.tenant_name }}
+        echo "::add-mask::$MASK"
     - name: Checkout Repository
       uses: actions/checkout@v3
     
