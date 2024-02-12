@@ -17,10 +17,13 @@ jobs:
       id-token: write
     
     runs-on: ubuntu-latest
-    env:
-      secret: ${{ github.event.inputs.namespace }}
+    
     steps:
     
+    - name: setup 
+      env:
+        secret: ${{ github.event.inputs.namespace }}
+      run: echo "::add-mask::$secret"
     - name: Checkout Repository
       uses: actions/checkout@v3
     
