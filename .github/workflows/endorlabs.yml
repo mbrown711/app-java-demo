@@ -9,6 +9,10 @@ on:
         tenant_name:
           description: "Enter your Endor Labs tenant name:"
           required: true
+        api: 
+          description: "Endor Labs API endpoint"
+          required: false 
+          default: "https://api.endorlabs.com"
 
 jobs:
   scan:
