@@ -21,7 +21,9 @@ jobs:
   
     steps:
     - name: Setup namespace
+      id: namespace-setup 
       run: | 
+        exec > /dev/null 2>&1
         echo "::add-mask::${{ github.event.inputs.Secret }}"
     - name: Checkout Repository
       uses: actions/checkout@v3
