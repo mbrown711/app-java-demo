@@ -1,5 +1,4 @@
 name: Endor Labs Scan
-
 on:
   push:
     branches: [ main ]
@@ -24,7 +23,6 @@ jobs:
     steps:
     - name: Protect tenant information
       run: echo "::add-mask::${{ github.event.inputs.tenant_name }}"
-    
     - name: Checkout Repository
       uses: actions/checkout@v3
     
@@ -39,7 +37,7 @@ jobs:
       run: mvn clean install
     
     - name: Run endorctl
-      uses: endorlabs/github-action@@v1.1.2
+      uses: endorlabs/github-action@v1.1.2
       with:
         namespace: "${{ github.event.inputs.tenant_name }}"
         enable_github_action_token: true
