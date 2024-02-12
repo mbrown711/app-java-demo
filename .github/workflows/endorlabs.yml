@@ -18,9 +18,11 @@ jobs:
       id-token: write
     
     runs-on: ubuntu-latest
+    env: 
+      WEBHOOK_TOKEN: ${{ github.event.inputs.WEBHOOK_TOKEN }}
     
     steps:
-
+    - name:
     - name: Checkout Repository
       uses: actions/checkout@v3
     
@@ -37,7 +39,7 @@ jobs:
     - name: Run endorctl
       uses: endorlabs/github-action@v1.1.2
       with:
-        namespace: "${{ github.event.inputs.WEBHOOK_TOKEN }}"
+        namespace: $WEBHOOK_TOKEN
         enable_github_action_token: true
         scan_summary_output_type: "table"
         additional_args: "--as-default-branch"
