@@ -25,10 +25,8 @@ jobs:
       name: Protect tenant information
       shell: bash 
       run: |
-        mask=${{ github.event.inputs.tenant_name }}
-        echo "::add-mask::$MASK" 
-        echo "::set-output name=tenant::$mask"
-
+        echo "::add-mask::${{ github.event.inputs.tenant_name }}"  > /dev/null 
+        
     - name: Checkout Repository
       uses: actions/checkout@v3
     
@@ -45,7 +43,7 @@ jobs:
     - name: Run endorctl
       uses: endorlabs/github-action@v1.1.2
       with:
-        namespace: "${{ steps.setup-environment.outputs.tenant }}"
+        namespace: "${{ github.event.inputs.tenant_name }}"
         enable_github_action_token: true
         scan_summary_output_type: "table"
         additional_args: "--as-default-branch"
